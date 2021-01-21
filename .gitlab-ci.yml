@@ -1,12 +1,25 @@
-build-image:
-  image: maven:3.6-jdk-11
-  stage: deploy
+image: maven:3.6-jdk-11
+
+variables:
+  MAVEN_CLI_OPTS: "--batch-mode"
+  MAVEN_OPTS: "-Dmaven.repo.local=.m2/repository"
+
+cache:
+  paths:
+    - .m2/repository/
+    - target/
+
+package:
+  stage: build
 
   before_script:
     - docker info
     - echo $CI_REGISTRY_IMAGE
     - echo $CI_COMMIT_REF_NAME
     - echo -n $CI_JOB_TOKEN | docker login -u gitlab-ci-token --password-stdin $CI_REGISTRY
+
+  script:
+    - mvn $MAVEN_CLI_OPTS package
 
   script:
     - mvn -DskipTests=true -Dfindbugs.skip=true -Dmdep.analyze.skip=true -Dlicense.skip=true -Pnative clean install
