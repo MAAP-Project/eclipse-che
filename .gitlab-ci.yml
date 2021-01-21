@@ -9,7 +9,7 @@ before_script:
   - echo $CI_COMMIT_REF_NAME
   - echo -n $CI_JOB_TOKEN | docker login -u gitlab-ci-token --password-stdin $CI_REGISTRY
 
-Build:
+Build step:
   stage: build
   script:
     - mvn -DskipTests=true -Dfindbugs.skip=true -Dmdep.analyze.skip=true -Dlicense.skip=true -Pnative clean install
