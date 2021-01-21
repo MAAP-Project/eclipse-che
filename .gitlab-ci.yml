@@ -1,21 +1,22 @@
 image: maven:3.6-jdk-11
 
-stages:
-  - build
-
-before_script:
-  - docker info
-  - echo $CI_REGISTRY_IMAGE
-  - echo $CI_COMMIT_REF_NAME
-  - echo -n $CI_JOB_TOKEN | docker login -u gitlab-ci-token --password-stdin $CI_REGISTRY
-
-Build step:
+build-image:
   stage: build
+
+  before_script:
+    - docker info
+    - echo $CI_REGISTRY_IMAGE
+    - echo $CI_COMMIT_REF_NAME
+    - echo -n $CI_JOB_TOKEN | docker login -u gitlab-ci-token --password-stdin $CI_REGISTRY
+
   script:
     - mvn -DskipTests=true -Dfindbugs.skip=true -Dmdep.analyze.skip=true -Dlicense.skip=true -Pnative clean install
     - cd dockerfiles && ./build.sh --tag:$CI_COMMIT_REF_NAME --organization:$CI_REGISTRY_IMAGE --skip-tests && cd ..
     - docker push ${CI_REGISTRY_IMAGE}/che-server:${CI_COMMIT_REF_NAME}
     - docker push ${CI_REGISTRY_IMAGE}/che-postgres:${CI_COMMIT_REF_NAME}
     - docker push ${CI_REGISTRY_IMAGE}/che-keycloak:${CI_COMMIT_REF_NAME}
+
+  tags:
+    - shell
 
 
