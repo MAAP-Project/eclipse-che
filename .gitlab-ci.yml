@@ -1,6 +1,6 @@
 build-image:
   image: maven:3.6-jdk-11
-  stage: build
+  stage: deploy
 
   before_script:
     - docker info
