@@ -1,6 +1,5 @@
-image: maven:3.6-jdk-11
-
 build-image:
+  image: maven:3.6-jdk-11
   stage: build
 
   before_script:
