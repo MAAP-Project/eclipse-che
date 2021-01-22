@@ -49,9 +49,9 @@ build:jdk11:
     - apt-get install -y docker-ce
     - mvn -DskipTests=true -Dfindbugs.skip=true -Dmdep.analyze.skip=true -Dlicense.skip=true -Pnative clean install
     - cd dockerfiles && ./build.sh --tag:$CI_COMMIT_REF_NAME --organization:$CI_REGISTRY_IMAGE --skip-tests && cd ..
-    - docker push ${CI_REGISTRY_IMAGE}/che-server:${CI_COMMIT_REF_NAME}
-    - docker push ${CI_REGISTRY_IMAGE}/che-postgres:${CI_COMMIT_REF_NAME}
-    - docker push ${CI_REGISTRY_IMAGE}/che-keycloak:${CI_COMMIT_REF_NAME}
+    #- docker push ${CI_REGISTRY_IMAGE}/che-server:${CI_COMMIT_REF_NAME}
+    #- docker push ${CI_REGISTRY_IMAGE}/che-postgres:${CI_COMMIT_REF_NAME}
+    #- docker push ${CI_REGISTRY_IMAGE}/che-keycloak:${CI_COMMIT_REF_NAME}
 
 
 # To deploy packages from CI, create a ci_settings.xml file
