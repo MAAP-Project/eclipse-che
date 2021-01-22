@@ -46,6 +46,7 @@ deploy:
     - echo $CI_REGISTRY_IMAGE
     - echo $CI_COMMIT_REF_NAME
     - echo -n $CI_JOB_TOKEN | docker login -u gitlab-ci-token --password-stdin $CI_REGISTRY
+    - apk update && apk add bash
 
   script:
     - pwd
