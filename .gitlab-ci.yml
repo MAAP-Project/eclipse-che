@@ -21,6 +21,7 @@ package:
     - echo $CI_REGISTRY_IMAGE
     - echo $CI_COMMIT_REF_NAME
     - echo -n $CI_JOB_TOKEN | docker login -u gitlab-ci-token --password-stdin $CI_REGISTRY
+    - java -version
 
   script:
     - mvn -DskipTests=true -Dfindbugs.skip=true -Dmdep.analyze.skip=true -Dlicense.skip=true -Pnative  -Denforcer.fail=false -Denforcer.skip=true clean install
