@@ -30,6 +30,10 @@ build:
     - pwd
     - ls
     - mvn -DskipTests=true -Dfindbugs.skip=true -Dmdep.analyze.skip=true -Dlicense.skip=true -Pnative clean install
+  artifacts:
+    paths:
+    - assembly/
+    expire_in: 1 week
 
 deploy:
   # We use the default Docker-IN-Docker (DIND) image since we need to push to the Gitlab registry
