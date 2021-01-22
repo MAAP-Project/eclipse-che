@@ -1,4 +1,4 @@
-image: gitlab/dind
+image: gitlab/dind:latest
 
 variables:
   # This will suppress any download for dependencies and plugins or upload messages which would clutter the console log.
