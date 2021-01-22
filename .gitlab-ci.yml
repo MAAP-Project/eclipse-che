@@ -44,7 +44,7 @@ build:
 
 deploy:
   # We use the default Docker-IN-Docker (DIND) image since we need to push to the Gitlab registry
-  stage: build-artifact
+  stage: deploy
   script:
     - cd dockerfiles && ./build.sh --tag:$CI_COMMIT_REF_NAME --organization:$CI_REGISTRY_IMAGE --skip-tests && cd ..
     - docker push ${CI_REGISTRY_IMAGE}/che-server:${CI_COMMIT_REF_NAME}
