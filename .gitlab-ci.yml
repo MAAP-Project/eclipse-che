@@ -14,7 +14,7 @@ cache:
     - .m2/repository/
 
 package:
-  stage: build
+  stage: deploy
 
   before_script:
     - docker info
