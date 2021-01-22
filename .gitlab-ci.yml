@@ -1,4 +1,4 @@
-image: docker:18-git
+image: docker:stable
 
 variables:
   # This will suppress any download for dependencies and plugins or upload messages which would clutter the console log.
@@ -12,7 +12,7 @@ variables:
   DOCKER_DRIVER: overlay2
 
 services:
-  - name: docker:18-git
+  - name: docker:stable
     alias: docker
 
 # Cache downloaded dependencies and plugins between builds.
