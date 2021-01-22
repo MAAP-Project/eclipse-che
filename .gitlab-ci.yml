@@ -24,12 +24,12 @@ cache:
     - .m2/repository
 
 #TODO: Uncomment once docker info command is verified working
-#build:
-#  image: maven:3.6-jdk-11
-#  script:
-#    - pwd
-#    - ls
-#    - mvn -DskipTests=true -Dfindbugs.skip=true -Dmdep.analyze.skip=true -Dlicense.skip=true -Pnative clean install
+build:
+  image: maven:3.6-jdk-11
+  script:
+    - pwd
+    - ls
+    - mvn -DskipTests=true -Dfindbugs.skip=true -Dmdep.analyze.skip=true -Dlicense.skip=true -Pnative clean install
 
 deploy:
   # We use the default Docker-IN-Docker (DIND) image since we need to push to the Gitlab registry
