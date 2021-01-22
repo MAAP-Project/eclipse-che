@@ -46,6 +46,8 @@ deploy:
   script:
     - pwd
     - ls
+    - ls assembly/assembly-main
+    - ls assembly/assembly-main/target
     - cd dockerfiles && ./build.sh --tag:$CI_COMMIT_REF_NAME --organization:$CI_REGISTRY_IMAGE --skip-tests && cd ..
     - docker images
     - docker tag che7/che-server:$CI_COMMIT_REF_NAME ${CI_REGISTRY_IMAGE}/che-server:${CI_COMMIT_REF_NAME}
