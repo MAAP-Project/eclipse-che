@@ -12,6 +12,7 @@ variables:
 
 services:
   - docker:18.09-dind
+    alias: docker
 
 # This template uses jdk11 for verifying and deploying images
 #image: maven:3.6-jdk-11
