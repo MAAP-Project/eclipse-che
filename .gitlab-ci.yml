@@ -1,4 +1,4 @@
-image: docker:18.09
+image: docker:18-git
 
 variables:
   # This will suppress any download for dependencies and plugins or upload messages which would clutter the console log.
@@ -8,10 +8,11 @@ variables:
   # when running from the command line.
   # `installAtEnd` and `deployAtEnd` are only effective with recent version of the corresponding plugins.
   MAVEN_CLI_OPTS: "--batch-mode --errors --fail-at-end --show-version -DinstallAtEnd=true -DdeployAtEnd=true"
-  DOCKER_DRIVER: overlay
+  DOCKER_HOST: tcp://docker:2375/
+  DOCKER_DRIVER: overlay2
 
 services:
-  - name: docker:18.09-dind
+  - name: docker:18-git
     alias: docker
 
 # Cache downloaded dependencies and plugins between builds.
@@ -20,25 +21,13 @@ cache:
   paths:
     - .m2/repository
 
-# For merge requests do not `deploy` but only run `verify`.
-# See https://maven.apache.org/guides/introduction/introduction-to-the-lifecycle.html
-#.verify: &verify
-#  stage: test
+#TODO: Uncomment once docker info command is verified working
+#build:
+#  image: maven:3.6-jdk-11
 #  script:
-#    - 'mvn $MAVEN_CLI_OPTS verify'
-#  except:
-#    - master
-
-# Verify merge requests using JDK11
-#verify:jdk11:
-#  <<: *verify
-
-build:
-  image: maven:3.6-jdk-11
-  script:
-    - pwd
-    - ls
-    - mvn -DskipTests=true -Dfindbugs.skip=true -Dmdep.analyze.skip=true -Dlicense.skip=true -Pnative clean install
+#    - pwd
+#    - ls
+#    - mvn -DskipTests=true -Dfindbugs.skip=true -Dmdep.analyze.skip=true -Dlicense.skip=true -Pnative clean install
 
 deploy:
   # We use the default Docker-IN-Docker (DIND) image since we need to push to the Gitlab registry
