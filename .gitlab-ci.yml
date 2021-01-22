@@ -42,11 +42,6 @@ cache:
 
 build:jdk11:
   script:
-    - curl -fsSL https://download.docker.com/linux/ubuntu/gpg | apt-key add -
-    - add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
-    - apt-get update
-    - apt-cache policy docker-ce
-    - apt-get install -y docker-ce
     - mvn -DskipTests=true -Dfindbugs.skip=true -Dmdep.analyze.skip=true -Dlicense.skip=true -Pnative clean install
     - cd dockerfiles && ./build.sh --tag:$CI_COMMIT_REF_NAME --organization:$CI_REGISTRY_IMAGE --skip-tests && cd ..
     #- docker push ${CI_REGISTRY_IMAGE}/che-server:${CI_COMMIT_REF_NAME}
