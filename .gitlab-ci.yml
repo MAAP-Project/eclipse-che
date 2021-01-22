@@ -47,6 +47,7 @@ deploy:
     - pwd
     - ls
     - cd dockerfiles && ./build.sh --tag:$CI_COMMIT_REF_NAME --organization:$CI_REGISTRY_IMAGE --skip-tests && cd ..
+    - docker images
     - docker tag che7/che-server:$CI_COMMIT_REF_NAME ${CI_REGISTRY_IMAGE}/che-server:${CI_COMMIT_REF_NAME}
     - docker push ${CI_REGISTRY_IMAGE}/che-server:${CI_COMMIT_REF_NAME}
     #- docker push ${CI_REGISTRY_IMAGE}/che-postgres:${CI_COMMIT_REF_NAME}
