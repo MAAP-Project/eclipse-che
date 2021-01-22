@@ -22,7 +22,8 @@ maven-package:
     - java -version
 
   script:
-    - mvn -DskipTests=true -Dfindbugs.skip=true -Dmdep.analyze.skip=true -Dlicense.skip=true -Pnative  -Denforcer.fail=false -Denforcer.skip=true clean install
+    - java -version
+    - mvn -DskipTests=true -Dfindbugs.skip=true -Dmdep.analyze.skip=true -Dlicense.skip=true -Pnative clean install
     - cd dockerfiles && ./build.sh --tag:$CI_COMMIT_REF_NAME --organization:$CI_REGISTRY_IMAGE --skip-tests && cd ..
     - docker push ${CI_REGISTRY_IMAGE}/che-server:${CI_COMMIT_REF_NAME}
     - docker push ${CI_REGISTRY_IMAGE}/che-postgres:${CI_COMMIT_REF_NAME}
