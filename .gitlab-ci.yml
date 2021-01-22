@@ -40,8 +40,6 @@ build:
     - ls
     - mvn -DskipTests=true -Dfindbugs.skip=true -Dmdep.analyze.skip=true -Dlicense.skip=true -Pnative clean install
 
-
-
 deploy:
   # We use the default Docker-IN-Docker (DIND) image since we need to push to the Gitlab registry
   stage: deploy
