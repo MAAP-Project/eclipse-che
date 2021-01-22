@@ -11,7 +11,7 @@ variables:
   DOCKER_DRIVER: overlay
 
 services:
-  - docker:18.09-dind
+  - name: docker:18.09-dind
     alias: docker
 
 # This template uses jdk11 for verifying and deploying images
