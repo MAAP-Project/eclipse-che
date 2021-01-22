@@ -42,6 +42,7 @@ build_directory() {
 }
 
 build_all() {
+  echo "No args. Building all images"
   # loop on all directories and call build.sh script if present
   for directory in */ ; do
     if [ -e ${directory}/build.sh ] ; then

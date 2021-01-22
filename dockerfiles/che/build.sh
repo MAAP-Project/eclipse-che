@@ -11,6 +11,7 @@
 base_dir=$(cd "$(dirname "$0")"; pwd)
 . "${base_dir}"/../build.include
 
+echo "Running dockerfiles\che\build.sh."
 
 # grab assembly
 DIR=$(cd "$(dirname "$0")"; pwd)
