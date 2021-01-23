@@ -8,12 +8,12 @@
 
 # Variables in `COPY --from=` is not supported see https://github.com/moby/moby/issues/34482
 # this is workaround to handle that.
-ARG CHE_DASHBOARD_ORGANIZATION=quay.io/eclipse
-ARG CHE_DASHBOARD_NEXT_ORGANIZATION=quay.io/eclipse
-ARG CHE_DASHBOARD_VERSION=next
-ARG CHE_DASHBOARD_NEXT_VERSION=next-react
+ARG CHE_DASHBOARD_ORGANIZATION=mas.maap-project.org:5000/root
+ARG CHE_DASHBOARD_NEXT_ORGANIZATION=mas.maap-project.org:5000/root
+ARG CHE_DASHBOARD_VERSION=7.23.1-maap
+ARG CHE_DASHBOARD_NEXT_VERSION=7.23.1-maap
 ARG CHE_WORKSPACE_LOADER_ORGANIZATION=quay.io/eclipse
-ARG CHE_WORKSPACE_LOADER_VERSION=next
+ARG CHE_WORKSPACE_LOADER_VERSION=7.23.1
 
 FROM ${CHE_DASHBOARD_ORGANIZATION}/che-dashboard:${CHE_DASHBOARD_VERSION} as che_dashboard_base
 FROM ${CHE_DASHBOARD_NEXT_ORGANIZATION}/che-dashboard:${CHE_DASHBOARD_NEXT_VERSION} as che_dashboard_next
