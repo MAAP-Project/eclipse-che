@@ -28,7 +28,7 @@ ENTRYPOINT ["/entrypoint.sh"]
 RUN mkdir /logs /data && \
     chmod 0777 /logs /data
 COPY --from=che_dashboard_base /usr/local/apache2/htdocs/dashboard /home/user/eclipse-che/tomcat/webapps/dashboard
-COPY --from=che_dashboard_next /usr/local/apache2/htdocs/dashboard/next /home/user/eclipse-che/tomcat/webapps/dashboard/next
+# COPY --from=che_dashboard_next /usr/local/apache2/htdocs/dashboard/next /home/user/eclipse-che/tomcat/webapps/dashboard/next
 COPY --from=che_workspace_loader_base /usr/local/apache2/htdocs/workspace-loader/ /home/user/eclipse-che/tomcat/webapps/workspace-loader
 ADD eclipse-che /home/user/eclipse-che
 RUN find /home/user -type d -exec chmod 777 {} \;

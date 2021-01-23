@@ -10,7 +10,7 @@
 #
 
 # https://access.redhat.com/containers/?tab=tags#/registry.access.redhat.com/ubi8-minimal
-FROM docker.io/bsatoriu/ubi8-minimal:8.3-230
+FROM registry.access.redhat.com/ubi8-minimal:8.2-345
 USER root
 ENV CHE_HOME=/home/user/codeready
 ENV JAVA_HOME=/usr/lib/jvm/jre
