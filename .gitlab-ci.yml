@@ -45,7 +45,6 @@ deploy:
 
   script:
     - cd dockerfiles && ./build.sh --tag:$CI_COMMIT_REF_NAME --organization:$CI_REGISTRY_IMAGE --skip-tests && cd ..
-    #- cd dockerfiles && ./build.sh --tag:$CI_COMMIT_REF_NAME --organization:$CI_REGISTRY_IMAGE --build-arg:CHE_DASHBOARD_NEXT_ORGANIZATION=mas.maap-project.org:5000/root --build-arg:CHE_DASHBOARD_NEXT_VERSION=7.23.1-maap --build-arg:CHE_DASHBOARD_ORGANIZATION=mas.maap-project.org:5000/root --build-arg:CHE_DASHBOARD_VERSION=7.23.1-maap --build-arg:CHE_WORKSPACE_LOADER_VERSION=7.23.1 --skip-tests && cd ..
     - docker push ${CI_REGISTRY_IMAGE}/che-server:${CI_COMMIT_REF_NAME}
     - docker push ${CI_REGISTRY_IMAGE}/che-postgres:${CI_COMMIT_REF_NAME}
     - docker push ${CI_REGISTRY_IMAGE}/che-keycloak:${CI_COMMIT_REF_NAME}
