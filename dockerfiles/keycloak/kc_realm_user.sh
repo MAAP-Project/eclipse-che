@@ -61,10 +61,14 @@ fi
 # and it isn't fit to docker-entrypoin.sh.
 unset POSTGRES_PORT
 
+echo "Installing MAAP plugins..."
+cp /scripts/keycloak-cas-services-6.0.1-maap.jar /opt/jboss/keycloak/standalone/deployments/
+
 echo "Starting Keycloak server..."
 
 exec /opt/jboss/docker-entrypoint.sh -Dkeycloak.migration.action=import \
                                      -Dkeycloak.migration.provider=dir \
                                      -Dkeycloak.migration.strategy=IGNORE_EXISTING \
                                      -Dkeycloak.migration.dir=/scripts/ \
+                                     -Dkeycloak.profile.feature.scripts=enabled \
                                      -Djboss.bind.address=0.0.0.0
