@@ -26,6 +26,7 @@ cache:
 build:
   image: maven:3.6-jdk-11
   script:
+    - mvn fmt:format
     - mvn -DskipTests=true -Dfindbugs.skip=true -Dmdep.analyze.skip=true -Dlicense.skip=true -Pnative clean install
   artifacts:
     paths:
