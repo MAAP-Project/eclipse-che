@@ -15,7 +15,6 @@ https://www.eclipse.org/che/)
 
 </div>
 
-
 ![Eclipse Che](https://raw.githubusercontent.com/eclipse/che/assets/screenshoft_che7-quarkus-demo.png)
 
 ---

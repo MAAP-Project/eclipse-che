@@ -35,6 +35,7 @@ import org.eclipse.che.workspace.infrastructure.kubernetes.provision.ServiceAcco
 import org.eclipse.che.workspace.infrastructure.kubernetes.provision.SshKeysProvisioner;
 import org.eclipse.che.workspace.infrastructure.kubernetes.provision.TlsProvisioner;
 import org.eclipse.che.workspace.infrastructure.kubernetes.provision.TlsProvisionerProvider;
+import org.eclipse.che.workspace.infrastructure.kubernetes.provision.TolerationsProvisioner;
 import org.eclipse.che.workspace.infrastructure.kubernetes.provision.UniqueNamesProvisioner;
 import org.eclipse.che.workspace.infrastructure.kubernetes.provision.VcsSslCertificateProvisioner;
 import org.eclipse.che.workspace.infrastructure.kubernetes.provision.env.EnvVarsConverter;
@@ -84,6 +85,7 @@ public class KubernetesEnvironmentProvisionerTest {
   @Mock private PreviewUrlExposer previewUrlExposer;
   @Mock private VcsSslCertificateProvisioner vcsSslCertificateProvisioner;
   @Mock private NodeSelectorProvisioner nodeSelectorProvisioner;
+  @Mock private TolerationsProvisioner tolerationsProvisioner;
   @Mock private KubernetesTrustedCAProvisioner trustedCAProvisioner;
   @Mock private GatewayRouterProvisioner gatewayRouterProvisioner;
 
@@ -111,6 +113,7 @@ public class KubernetesEnvironmentProvisionerTest {
             imagePullSecretProvisioner,
             proxySettingsProvisioner,
             nodeSelectorProvisioner,
+            tolerationsProvisioner,
             asyncStorageProvisioner,
             asyncStoragePodObserver,
             serviceAccountProvisioner,
@@ -131,6 +134,7 @@ public class KubernetesEnvironmentProvisionerTest {
             restartPolicyRewriter,
             ramLimitProvisioner,
             nodeSelectorProvisioner,
+            tolerationsProvisioner,
             securityContextProvisioner,
             podTerminationGracePeriodProvisioner,
             externalServerIngressTlsProvisioner,
@@ -153,9 +157,10 @@ public class KubernetesEnvironmentProvisionerTest {
     provisionOrder.verify(envVarsProvisioner).provision(eq(k8sEnv), eq(runtimeIdentity));
     provisionOrder.verify(volumesStrategy).provision(eq(k8sEnv), eq(runtimeIdentity));
     provisionOrder.verify(restartPolicyRewriter).provision(eq(k8sEnv), eq(runtimeIdentity));
-    provisionOrder.verify(uniqueNamesProvisioner).provision(eq(k8sEnv), eq(runtimeIdentity));
+
     provisionOrder.verify(ramLimitProvisioner).provision(eq(k8sEnv), eq(runtimeIdentity));
     provisionOrder.verify(nodeSelectorProvisioner).provision(eq(k8sEnv), eq(runtimeIdentity));
+    provisionOrder.verify(tolerationsProvisioner).provision(eq(k8sEnv), eq(runtimeIdentity));
     provisionOrder
         .verify(externalServerIngressTlsProvisioner)
         .provision(eq(k8sEnv), eq(runtimeIdentity));
@@ -170,6 +175,7 @@ public class KubernetesEnvironmentProvisionerTest {
     provisionOrder.verify(gitConfigProvisioner).provision(eq(k8sEnv), eq(runtimeIdentity));
     provisionOrder.verify(gatewayRouterProvisioner).provision(eq(k8sEnv), eq(runtimeIdentity));
     provisionOrder.verify(trustedCAProvisioner).provision(eq(k8sEnv), eq(runtimeIdentity));
+    provisionOrder.verify(uniqueNamesProvisioner).provision(eq(k8sEnv), eq(runtimeIdentity));
     provisionOrder.verifyNoMoreInteractions();
   }
 }

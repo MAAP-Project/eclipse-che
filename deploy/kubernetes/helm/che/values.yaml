@@ -16,7 +16,12 @@
 cheWorkspaceHttpProxy: ""
 cheWorkspaceHttpsProxy: ""
 cheWorkspaceNoProxy: ""
-cheImage: quay.io/eclipse/che-server:7.23.1
+#cheWorkspacePodTolerations:
+#  - key: "a.node.taint"
+#    operator: "Equal"
+#    value: "aValue"
+#    effect: "NoExecute"
+cheImage: quay.io/eclipse/che-server:7.25.2
 cheImagePullPolicy: Always
 cheKeycloakRealm: "che"
 cheKeycloakClientId: "che-public"
@@ -47,6 +52,8 @@ global:
   # Image used by endpoint watchers
   endpointWatcher:
     image: quay.io/eclipse/che-endpoint-watcher:nightly
+  # Use internal cluster svc names to communicate between components
+  useInternalClusterSVCNames: true
 
   ## Allows to enable and configure TLS
   tls:
@@ -62,7 +69,7 @@ global:
     useSelfSignedCerts: true
     selfSignedCertSecretName: self-signed-certificate
 
-    ## Name of the config-map with public certificates to add to Java trust store 
+    ## Name of the config-map with public certificates to add to Java trust store
     ## of the Che server, Keycloak and propagate into user workspaces.
     serverTrustStoreConfigMapName: ""
 
@@ -123,7 +130,7 @@ che:
   logLevel: "INFO"
 
 dashboard:
-  image: quay.io/eclipse/che-dashboard:7.23.1
+  image: quay.io/eclipse/che-dashboard:7.25.2
   imagePullPolicy: "Always"
   memoryRequest: 16Mi
   memoryLimit: 256Mi

@@ -36,6 +36,7 @@ import org.eclipse.che.workspace.infrastructure.kubernetes.provision.ServiceAcco
 import org.eclipse.che.workspace.infrastructure.kubernetes.provision.SshKeysProvisioner;
 import org.eclipse.che.workspace.infrastructure.kubernetes.provision.TlsProvisioner;
 import org.eclipse.che.workspace.infrastructure.kubernetes.provision.TlsProvisionerProvider;
+import org.eclipse.che.workspace.infrastructure.kubernetes.provision.TolerationsProvisioner;
 import org.eclipse.che.workspace.infrastructure.kubernetes.provision.UniqueNamesProvisioner;
 import org.eclipse.che.workspace.infrastructure.kubernetes.provision.VcsSslCertificateProvisioner;
 import org.eclipse.che.workspace.infrastructure.kubernetes.provision.env.EnvVarsConverter;
@@ -78,6 +79,7 @@ public interface KubernetesEnvironmentProvisioner<T extends KubernetesEnvironmen
     private final ImagePullSecretProvisioner imagePullSecretProvisioner;
     private final ProxySettingsProvisioner proxySettingsProvisioner;
     private final NodeSelectorProvisioner nodeSelectorProvisioner;
+    private final TolerationsProvisioner tolerationsProvisioner;
     private final AsyncStorageProvisioner asyncStorageProvisioner;
     private final AsyncStoragePodInterceptor asyncStoragePodInterceptor;
     private final ServiceAccountProvisioner serviceAccountProvisioner;
@@ -105,6 +107,7 @@ public interface KubernetesEnvironmentProvisioner<T extends KubernetesEnvironmen
         ImagePullSecretProvisioner imagePullSecretProvisioner,
         ProxySettingsProvisioner proxySettingsProvisioner,
         NodeSelectorProvisioner nodeSelectorProvisioner,
+        TolerationsProvisioner tolerationsProvisioner,
         AsyncStorageProvisioner asyncStorageProvisioner,
         AsyncStoragePodInterceptor asyncStoragePodInterceptor,
         ServiceAccountProvisioner serviceAccountProvisioner,
@@ -129,6 +132,7 @@ public interface KubernetesEnvironmentProvisioner<T extends KubernetesEnvironmen
       this.imagePullSecretProvisioner = imagePullSecretProvisioner;
       this.proxySettingsProvisioner = proxySettingsProvisioner;
       this.nodeSelectorProvisioner = nodeSelectorProvisioner;
+      this.tolerationsProvisioner = tolerationsProvisioner;
       this.asyncStorageProvisioner = asyncStorageProvisioner;
       this.asyncStoragePodInterceptor = asyncStoragePodInterceptor;
       this.serviceAccountProvisioner = serviceAccountProvisioner;
@@ -167,9 +171,9 @@ public interface KubernetesEnvironmentProvisioner<T extends KubernetesEnvironmen
       // 3 stage - add Kubernetes env items
       LOG.debug("Provisioning environment items for workspace '{}'", workspaceId);
       restartPolicyRewriter.provision(k8sEnv, identity);
-      uniqueNamesProvisioner.provision(k8sEnv, identity);
       resourceLimitRequestProvisioner.provision(k8sEnv, identity);
       nodeSelectorProvisioner.provision(k8sEnv, identity);
+      tolerationsProvisioner.provision(k8sEnv, identity);
       externalServerTlsProvisioner.provision(k8sEnv, identity);
       securityContextProvisioner.provision(k8sEnv, identity);
       podTerminationGracePeriodProvisioner.provision(k8sEnv, identity);
@@ -183,6 +187,7 @@ public interface KubernetesEnvironmentProvisioner<T extends KubernetesEnvironmen
       gitConfigProvisioner.provision(k8sEnv, identity);
       gatewayRouterProvisioner.provision(k8sEnv, identity);
       trustedCAProvisioner.provision(k8sEnv, identity);
+      uniqueNamesProvisioner.provision(k8sEnv, identity);
       LOG.debug("Provisioning Kubernetes environment done for workspace '{}'", workspaceId);
     }
   }
