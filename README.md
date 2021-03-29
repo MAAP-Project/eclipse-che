@@ -1,4 +1,8 @@
 <div id="header" align="center">
+  
+  MAAP Gitlab Pipeline Status
+  <br />
+  ![CI](https://mas.maap-project.org/root/che7/badges/7.25.2-maap/pipeline.svg)
 
 [![Eclipse Che - Eclipse Next-Generation IDE](https://raw.githubusercontent.com/eclipse/che/assets/eclipseche.png)](
 https://www.eclipse.org/che/)
