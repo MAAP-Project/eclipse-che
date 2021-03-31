@@ -182,7 +182,7 @@ public interface KubernetesEnvironmentProvisioner<T extends KubernetesEnvironmen
       serviceAccountProvisioner.provision(k8sEnv, identity);
       asyncStorageProvisioner.provision(k8sEnv, identity);
       certificateProvisioner.provision(k8sEnv, identity);
-      sshKeysProvisioner.provision(k8sEnv, identity);
+      //sshKeysProvisioner.provision(k8sEnv, identity); // disable internal Che SSH keys
       vcsSslCertificateProvisioner.provision(k8sEnv, identity);
       gitConfigProvisioner.provision(k8sEnv, identity);
       gatewayRouterProvisioner.provision(k8sEnv, identity);
