@@ -42,6 +42,7 @@ import org.eclipse.che.api.workspace.server.spi.environment.InternalRecipe;
 import org.eclipse.che.api.workspace.server.spi.environment.MachineConfigsValidator;
 import org.eclipse.che.api.workspace.server.spi.environment.RecipeRetriever;
 import org.eclipse.che.commons.annotation.Nullable;
+import org.eclipse.che.workspace.infrastructure.kubernetes.Names;
 import org.eclipse.che.workspace.infrastructure.kubernetes.Warnings;
 import org.eclipse.che.workspace.infrastructure.kubernetes.environment.KubernetesEnvironment.PodData;
 
@@ -94,6 +95,9 @@ public class KubernetesEnvironmentFactory
     for (HasMetadata object : recipeObjects) {
       checkNotNull(object.getKind(), "Environment contains object without specified kind field");
       checkNotNull(object.getMetadata(), "%s metadata must not be null", object.getKind());
+      if(object.getMetadata().getGenerateName() != null) {
+        object.getMetadata().setName(Names.generateName(object.getMetadata().getGenerateName()));
+      }
       checkNotNull(object.getMetadata().getName(), "%s name must not be null", object.getKind());
 
       if (object instanceof Pod) {

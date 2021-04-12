@@ -152,7 +152,7 @@ public class CommonPVCStrategy implements WorkspaceVolumesStrategy {
 
     // Note that PVC name is used during prefixing
     // It MUST be done before changing all PVCs references to common PVC
-    subpathPrefixes.prefixVolumeMountsSubpaths(k8sEnv, identity.getWorkspaceId());
+    subpathPrefixes.prefixVolumeMountsSubpaths(k8sEnv, identity.getWorkspaceId(), identity.getInfrastructureNamespace());
 
     PersistentVolumeClaim commonPVC = replacePVCsWithCommon(k8sEnv, identity);
 

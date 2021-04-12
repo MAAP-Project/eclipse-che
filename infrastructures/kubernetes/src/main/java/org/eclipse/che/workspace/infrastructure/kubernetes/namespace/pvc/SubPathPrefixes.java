@@ -45,6 +45,10 @@ public class SubPathPrefixes {
    * @param workspaceId workspace id that should be used as prefix
    */
   public void prefixVolumeMountsSubpaths(KubernetesEnvironment k8sEnv, String workspaceId) {
+    prefixVolumeMountsSubpaths(k8sEnv, workspaceId, workspaceId);
+  } 
+   
+  public void prefixVolumeMountsSubpaths(KubernetesEnvironment k8sEnv, String workspaceId, String ownerId) {
     for (PodData pod : k8sEnv.getPodsData().values()) {
       Map<String, String> volumeToCheVolumeName = new HashMap<>();
       for (io.fabric8.kubernetes.api.model.Volume volume : pod.getSpec().getVolumes()) {
@@ -83,7 +87,7 @@ public class SubPathPrefixes {
 
                   String volumeSubPath =
                       getVolumeMountSubpath(
-                          volumeMount, pvcName, workspaceId, Names.machineName(pod, c));
+                          volumeMount, pvcName, workspaceId, ownerId, Names.machineName(pod, c));
                   volumeMount.setSubPath(volumeSubPath);
                 }
               });
@@ -92,22 +96,24 @@ public class SubPathPrefixes {
 
   /** Get sub-path for particular Volume Mount in a particular workspace */
   private String getVolumeMountSubpath(
-      VolumeMount volumeMount, String volumeName, String workspaceId, String machineName) {
+      VolumeMount volumeMount, String volumeName, String workspaceId, String ownerId, String machineName) {
     String volumeMountSubPath = Strings.nullToEmpty(volumeMount.getSubPath());
     if (!volumeMountSubPath.startsWith("/")) {
       volumeMountSubPath = '/' + volumeMountSubPath;
     }
 
-    return getVolumeSubpath(workspaceId, volumeName, machineName) + volumeMountSubPath;
+    return getVolumeSubpath(workspaceId, ownerId, volumeName, machineName) + volumeMountSubPath;
   }
 
-  private String getVolumeSubpath(String workspaceId, String volumeName, String machineName) {
+  private String getVolumeSubpath(String workspaceId, String ownerId, String volumeName, String machineName) {
     // logs must be located inside the folder related to the machine because few machines can
     // contain the identical agents and in this case, a conflict is possible.
-    if (LOGS_VOLUME_NAME.equals(volumeName)) {
+    if (volumeName.startsWith(LOGS_VOLUME_NAME)) { // isolate by workspaceId
       return getWorkspaceSubPath(workspaceId) + '/' + volumeName + '/' + machineName;
+    } else if(volumeName.equals("plugins")) { // isolate by workspaceId
+      return getWorkspaceSubPath(workspaceId) + '/' + volumeName;
     }
-    return getWorkspaceSubPath(workspaceId) + '/' + volumeName;
+    return getWorkspaceSubPath(ownerId) + '/' + volumeName; // all other volumes belong to user so keep same subpath
   }
 
   /** Get sub-path that holds all the volumes of a particular workspace */
