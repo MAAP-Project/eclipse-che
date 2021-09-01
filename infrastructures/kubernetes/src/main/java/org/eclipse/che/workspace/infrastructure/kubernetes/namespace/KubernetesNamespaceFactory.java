@@ -585,8 +585,10 @@ public class KubernetesNamespaceFactory {
       do {
         normalizedNamespace =
             normalizedNamespace
-                .substring(0, Math.min(55, normalizedNamespace.length()))
-                .concat(NameGenerator.generate("-", 6));
+                .substring(0, Math.min(55, normalizedNamespace.length()));
+                //Don't concat the namespace, retaing the default format.
+                //See: https://github.com/maap-project/zenhub/issues/429
+                //.concat(NameGenerator.generate("-", 6));
         namespaceMetaOptional = fetchNamespace(normalizedNamespace);
       } while (namespaceMetaOptional.isPresent());
       namespace = normalizedNamespace;
