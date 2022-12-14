@@ -30,7 +30,6 @@ import org.eclipse.che.selenium.core.action.MacOSActionsFactory;
 import org.eclipse.che.selenium.core.client.CheTestUserServiceClient;
 import org.eclipse.che.selenium.core.client.CheTestWorkspaceServiceClient;
 import org.eclipse.che.selenium.core.client.TestAuthServiceClient;
-import org.eclipse.che.selenium.core.client.TestGitHubRepository;
 import org.eclipse.che.selenium.core.client.TestUserServiceClient;
 import org.eclipse.che.selenium.core.client.TestUserServiceClientFactory;
 import org.eclipse.che.selenium.core.client.TestWorkspaceServiceClient;
@@ -173,14 +172,5 @@ public class CheSeleniumSuiteModule extends AbstractModule {
   @Provides
   public ActionsFactory getActionFactory() {
     return isMac() ? new MacOSActionsFactory() : new GenericActionsFactory();
-  }
-
-  @Provides
-  @Named(AUXILIARY)
-  public TestGitHubRepository getTestGitHubRepository(
-      @Named("github.auxiliary.username") String gitHubAuxiliaryUsername,
-      @Named("github.auxiliary.password") String gitHubAuxiliaryPassword)
-      throws IOException, InterruptedException {
-    return new TestGitHubRepository(gitHubAuxiliaryUsername, gitHubAuxiliaryPassword);
   }
 }
