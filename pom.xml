@@ -1459,7 +1459,7 @@
             </snapshots>
             <id>jnks</id>
             <name>jenkins</name>
-            <url>http://repo.jenkins-ci.org/releases</url>
+            <url>https://repo.jenkins-ci.org/releases</url>
         </repository>
     </repositories>
     <pluginRepositories>
@@ -1467,6 +1467,11 @@
             <id>ossrh</id>
             <name>central public snapshots</name>
             <url>https://oss.sonatype.org/content/repositories/snapshots/</url>
+        </pluginRepository>
+        <pluginRepository>
+            <id>jnks</id>
+            <name>jenkins</name>
+            <url>https://repo.jenkins-ci.org/releases</url>
         </pluginRepository>
     </pluginRepositories>
     <build>
