@@ -1507,7 +1507,7 @@
                             <failFast>true</failFast>
                             <rules>
                                 <requireMavenVersion>
-                                    <version>[${mvn.version}]</version>
+                                    <version>3.6.1</version>
                                 </requireMavenVersion>
                                 <requireJavaVersion>
                                     <version>${required.java.version}</version>
