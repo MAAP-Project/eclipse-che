@@ -1489,6 +1489,34 @@
         <!-- Profile for building Che faster by skipping unit tests, license checks and other enforcement features -->
         <profile>
             <id>fast</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-enforcer-plugin</artifactId>
+                        <version>3.0.0-M3</version>
+                        <executions>
+                            <execution>
+                                <id>enforce-versions</id>
+                                <goals>
+                                <goal>enforce</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                        <configuration>
+                            <failFast>true</failFast>
+                            <rules>
+                                <requireMavenVersion>
+                                    <version>[${mvn.version}]</version>
+                                </requireMavenVersion>
+                                <requireJavaVersion>
+                                    <version>${required.java.version}</version>
+                                </requireJavaVersion>
+                            </rules>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
             <properties>
                 <findbugs.skip>true</findbugs.skip>
                 <fmt.skip>true</fmt.skip>
