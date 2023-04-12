@@ -58,7 +58,28 @@
         </dependency>
     </dependencies>
     <build>
-        <plugins>
+        <plugins>     
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-enforcer-plugin</artifactId>
+                <version>3.0.0-M3</version>
+                <executions>
+                    <execution>
+                        <id>enforce-versions</id>
+                        <goals>
+                        <goal>enforce</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <failFast>true</failFast>
+                    <rules>
+                        <requireMavenVersion>
+                            <version>3.6.0</version>
+                        </requireMavenVersion>
+                    </rules>
+                </configuration>
+            </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
